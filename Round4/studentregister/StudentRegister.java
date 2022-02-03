@@ -194,7 +194,7 @@ public class StudentRegister {
         ArrayList<String> codes = new ArrayList<>();
         
         if (inRecord == false) {
-            System.out.println("Unknown student number: " + studentNumber);
+            System.out.println("Unknown student number:" + studentNumber);
         } else {
             int studentNum = Integer.parseInt(studentNumber);
             
@@ -232,7 +232,7 @@ public class StudentRegister {
         ArrayList<String> codes = new ArrayList<>();
         
         if (inRecord == false) {
-            System.out.println("Unknown student number: " + studentNumber);
+            System.out.println("Unknown student number:" + studentNumber);
         } else {
             int studentNum = Integer.parseInt(studentNumber);
             
