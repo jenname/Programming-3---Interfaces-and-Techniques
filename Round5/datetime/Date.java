@@ -13,7 +13,7 @@ public class Date {
     private int month_;
     private int day_;
     
-    static int[][] allowedDays = {{31,31},{28,29},{31,31},{30,30},{31,31},
+    private static int[][] allowedDays = {{31,31},{28,29},{31,31},{30,30},{31,31},
         {30,30},{31,31},{31,31},{30,30},{31,31},{30,30},{31,31}};
     
     private boolean leapYear(int year) {
