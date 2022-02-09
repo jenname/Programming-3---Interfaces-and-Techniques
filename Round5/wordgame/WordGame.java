@@ -88,7 +88,11 @@ public class WordGame {
                 
                if ((mistakes_ ) == (maxMistakes_+1)) {
                 gameState_ = theWord_;
-                } 
+                gameActive_ = false;
+                }
+               if (unknownLetters_ == 0) {
+                gameActive_ = false;
+                }
                 
             } 
         }
@@ -108,6 +112,10 @@ public class WordGame {
             
             if ((mistakes_ ) == (maxMistakes_+1)) {
                 gameState_ = theWord_;
+                gameActive_ = false;
+            } 
+            if (unknownLetters_ == 0) {
+                gameActive_ = false;
             }
         }
         
