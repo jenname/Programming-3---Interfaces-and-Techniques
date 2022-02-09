@@ -75,11 +75,9 @@ public class WordGame {
                     if (Character.compare(letter, value) == 0) {
                         unknownLetters_ -= 1;
                         String previousWord = gameState_;
-                        System.out.println(gameState_);
                         gameState_ = previousWord.substring(0,n) + letter + 
                                 previousWord.substring(n+1);
                         guessedLetters_.add(c);
-                        System.out.println(gameState_);
                         ++amount;
                     } 
                 }
@@ -88,7 +86,9 @@ public class WordGame {
                     mistakes_ += 1;
                 }
                 
-                
+               if ((mistakes_ ) == (maxMistakes_+1)) {
+                gameState_ = theWord_;
+                } 
                 
             } 
         }
@@ -106,7 +106,7 @@ public class WordGame {
                 mistakes_ += 1;
             }
             
-            if ((mistakes_ +1) == maxMistakes_) {
+            if ((mistakes_ ) == (maxMistakes_+1)) {
                 gameState_ = theWord_;
             }
         }
