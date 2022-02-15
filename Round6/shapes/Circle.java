@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Other/File.java to edit this template
@@ -25,13 +26,14 @@ public class Circle implements IShapeMetrics {
     }
     
     public double area() {
-        double answer = (Math.PI)*radius_*radius_;
+        double answer = (PI)*radius_*radius_;
+        
         
         return answer;
     }
     
     public double circumference() {
-        double answer = 2*(Math.PI)*radius_;
+        double answer = 2*(PI)*radius_;
         return answer;
     }
 }
