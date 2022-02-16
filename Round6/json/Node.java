@@ -26,10 +26,6 @@ public abstract class Node {
     System.out.print(sb.toString());
   }
 
-  public void printJson() {
-    throw new UnsupportedOperationException("printJson has not been implemented!");
-  }
-
   private static final String NL = System.lineSeparator();
 
   private static String numberToString(Double d) {
@@ -38,6 +34,72 @@ public abstract class Node {
       str = str.substring(0, str.length() - 2);
     }
     return str;
+  }
+  
+  private void printValueNode(ValueNode value) {
+            
+            if (value.isNumber()) {
+                System.out.println(numberToString(value.getNumber()));
+            } else if (value.isBoolean()) {
+                System.out.println(Boolean.toString(value.getBoolean()));
+            } else if (value.isString()) {
+                System.out.println("\""+value.getString()+"\"");
+            }
+  }
+  
+  public void printJson() {
+    System.out.println("{");
+    ObjectNode x = (ObjectNode) this;
+    
+    for (String key_1 : x) {
+        Node node_x = x.get(key_1);
+        
+        if (node_x.isObject()) {
+            System.out.println("  \""+key_1+"\": {");
+            
+            ObjectNode objNode = (ObjectNode) node_x;
+            
+            for (String key_3 : objNode) {
+                System.out.print("    \""+key_3+"\": ");
+                ValueNode value_2 = (ValueNode) objNode.get(key_3);
+                printValueNode(value_2);
+            }
+            System.out.println("  },");
+        } 
+        
+        else if (node_x.isArray()) {
+            System.out.println("  \""+key_1+"\": [");
+            ArrayNode array = (ArrayNode) node_x;
+            
+            for (Node aNode : array) {
+                
+                ObjectNode value = (ObjectNode) aNode;
+                
+                for (String key_2 : value) {
+                    System.out.println("    {");
+                    System.out.print("      \""+key_2+"\": ");
+                    
+                    ValueNode value_1 = (ValueNode) value.get(key_2);
+                    printValueNode(value_1);
+                    System.out.println("    },");
+                } 
+            }
+            System.out.println("  ],");
+        } 
+        
+        else if (node_x.isValue()) {
+            System.out.print("  \""+key_1+"\": ");
+            ValueNode value = (ValueNode) node_x;
+            
+            printValueNode(value);
+            
+        }
+    }
+    
+    
+    
+    
+    System.out.println("}");
   }
 
   private void printSimple(Node node, StringBuilder sb) {
