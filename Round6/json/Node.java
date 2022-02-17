@@ -66,26 +66,32 @@ public abstract class Node {
             System.out.print("  ".repeat(recCount));
         }
 
-        System.out.println("{");
+        
         int size = objNode.size();
         int n = 1;
         
-        for (String key_1 : objNode) {
-            System.out.print("  ".repeat(recCount+1));
-            System.out.print("\""+key_1+"\": ");
-            
-            Node x = objNode.get(key_1);
-            x.printJson(recCount +1, 1);
-            if (n == size) {
-                System.out.println("");
-            } else {
-                System.out.println(",");
-            }
-            ++n;     
-
-        }
+        if (size != 0) {
+            System.out.println("{");
         
-        System.out.print("  ".repeat(recCount));
+            for (String key_1 : objNode) {
+                System.out.print("  ".repeat(recCount+1));
+                System.out.print("\""+key_1+"\": ");
+
+                Node x = objNode.get(key_1);
+                x.printJson(recCount +1, 1);
+                if (n == size) {
+                    System.out.println("");
+                } else {
+                    System.out.println(",");
+                }
+                ++n;     
+
+            }
+
+            System.out.print("  ".repeat(recCount));
+        } else {
+            System.out.print("{");
+        }
         
         System.out.print("}");
         
@@ -115,6 +121,7 @@ public abstract class Node {
         
         
     } else if (this.isValue()) {
+        System.out.print("  ".repeat(recCount));
         ValueNode value = (ValueNode) this;
         
         printValueNode(value);
