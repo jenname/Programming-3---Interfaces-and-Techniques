@@ -43,22 +43,29 @@ public abstract class Node {
   private void printValueNode(ValueNode value) {
             
             if (value.isNumber()) {
-                System.out.println(numberToString(value.getNumber()));
+                System.out.print(numberToString(value.getNumber()));
             } else if (value.isBoolean()) {
-                System.out.println(Boolean.toString(value.getBoolean()));
+                System.out.print(Boolean.toString(value.getBoolean()));
             } else if (value.isString()) {
-                System.out.println("\""+value.getString()+"\"");
+                System.out.print("\""+value.getString()+"\"");
             } else if (value.isNull()) {
-                System.out.println("null");
+                System.out.print("null");
             }
   }
   
   public void printJson() {
-    
+      printJson(0,3);
+  }
+  
+  public void printJson(int recCount, int prevNode) {
     
     if (this.isObject()) {
         ObjectNode objNode = (ObjectNode) this;
-        System.out.print("  ".repeat(recCount));
+        
+        if (prevNode != 1) {
+            System.out.print("  ".repeat(recCount));
+        }
+
         System.out.println("{");
         int size = objNode.size();
         int n = 1;
@@ -66,28 +73,45 @@ public abstract class Node {
         for (String key_1 : objNode) {
             System.out.print("  ".repeat(recCount+1));
             System.out.print("\""+key_1+"\": ");
-                Node x = objNode.get(key_1);
-                recCount += 1;
-                x.printJson();
-                recCount -= 1;
-                
+            
+            Node x = objNode.get(key_1);
+            x.printJson(recCount +1, 1);
+            if (n == size) {
+                System.out.println("");
+            } else {
+                System.out.println(",");
+            }
+            ++n;     
 
         }
+        
         System.out.print("  ".repeat(recCount));
-        System.out.println("}");
+        
+        System.out.print("}");
         
     } else if (this.isArray()) {
         ArrayNode arrNode = (ArrayNode) this;
-        System.out.print("  ".repeat(recCount));
-        System.out.println("[");
+        System.out.print("[");
+        int m = 1;
         
-        for (Node y : arrNode) {
-            ++recCount;
-            y.printJson();
-            --recCount;
+        if (arrNode.size() != 0) {
+            System.out.println();
+            
+            for (Node y : arrNode) {
+                y.printJson(recCount +1, 2);
+                
+                if (m == arrNode.size()) {
+                    System.out.println("");
+                } else {
+                    System.out.println(",");
+                }
+                ++m;
+                }
+            
+            System.out.print("  ".repeat(recCount));
         }
-        System.out.print("  ".repeat(recCount));
-        System.out.println("],");
+        
+        System.out.print("]");
         
         
     } else if (this.isValue()) {
