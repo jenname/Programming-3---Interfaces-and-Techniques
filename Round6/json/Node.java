@@ -121,8 +121,11 @@ public abstract class Node {
         
         
     } else if (this.isValue()) {
-        System.out.print("  ".repeat(recCount));
         ValueNode value = (ValueNode) this;
+        
+        if (prevNode == 2) {
+            System.out.print("  ".repeat(recCount));
+        }
         
         printValueNode(value);
     }
