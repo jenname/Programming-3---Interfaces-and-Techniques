@@ -36,6 +36,10 @@ public abstract class Node {
     return str;
   }
   
+  private String empties = "  ";
+  private int recCount = 0;
+  private int recCountNow = 0;
+  
   private void printValueNode(ValueNode value) {
             
             if (value.isNumber()) {
@@ -44,10 +48,56 @@ public abstract class Node {
                 System.out.println(Boolean.toString(value.getBoolean()));
             } else if (value.isString()) {
                 System.out.println("\""+value.getString()+"\"");
+            } else if (value.isNull()) {
+                System.out.println("null");
             }
   }
   
   public void printJson() {
+    
+    
+    if (this.isObject()) {
+        ObjectNode objNode = (ObjectNode) this;
+        System.out.print("  ".repeat(recCount));
+        System.out.println("{");
+        int size = objNode.size();
+        int n = 1;
+        
+        for (String key_1 : objNode) {
+            System.out.print("  ".repeat(recCount+1));
+            System.out.print("\""+key_1+"\": ");
+                Node x = objNode.get(key_1);
+                recCount += 1;
+                x.printJson();
+                recCount -= 1;
+                
+
+        }
+        System.out.print("  ".repeat(recCount));
+        System.out.println("}");
+        
+    } else if (this.isArray()) {
+        ArrayNode arrNode = (ArrayNode) this;
+        System.out.print("  ".repeat(recCount));
+        System.out.println("[");
+        
+        for (Node y : arrNode) {
+            ++recCount;
+            y.printJson();
+            --recCount;
+        }
+        System.out.print("  ".repeat(recCount));
+        System.out.println("],");
+        
+        
+    } else if (this.isValue()) {
+        ValueNode value = (ValueNode) this;
+        
+        printValueNode(value);
+    }
+    
+    
+      /*
     System.out.println("{");
     ObjectNode x = (ObjectNode) this;
     
@@ -99,7 +149,7 @@ public abstract class Node {
     
     
     
-    System.out.println("}");
+    System.out.println("}");*/
   }
 
   private void printSimple(Node node, StringBuilder sb) {
