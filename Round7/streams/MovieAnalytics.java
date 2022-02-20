@@ -69,8 +69,8 @@ public class MovieAnalytics {
     public Stream<Movie> moviesBefore(int year) {
         Stream<Movie> movieStream = movies_.stream().
                 filter(m -> m.getReleaseYear() <= year).
-                sorted(Comparator.comparingInt(Movie::getReleaseYear)).
-                sorted(Comparator.comparing(Movie::getTitle));
+                sorted(Comparator.comparing(Movie::getTitle)).
+                sorted(Comparator.comparingInt(Movie::getReleaseYear));
         
         return movieStream;
     }
@@ -79,8 +79,8 @@ public class MovieAnalytics {
         Stream<Movie> movieStream = movies_.stream().
                 filter(m -> m.getReleaseYear() >= yearA && 
                         m.getReleaseYear() <= yearB).
-                sorted(Comparator.comparingInt(Movie::getReleaseYear)).
-                sorted(Comparator.comparing(Movie::getTitle));
+                sorted(Comparator.comparing(Movie::getTitle)).
+                sorted(Comparator.comparingInt(Movie::getReleaseYear));
         
         return movieStream;
     }
@@ -88,8 +88,8 @@ public class MovieAnalytics {
     public Stream<Movie> moviesByDirector(String director) {
         Stream<Movie> movieStream = movies_.stream().
                 filter(m -> m.getDirector().equals(director)).
-                sorted(Comparator.comparingInt(Movie::getReleaseYear)).
-                sorted(Comparator.comparing(Movie::getTitle));
+                sorted(Comparator.comparing(Movie::getTitle)).
+                sorted(Comparator.comparingInt(Movie::getReleaseYear));
         
         return movieStream;
     }
