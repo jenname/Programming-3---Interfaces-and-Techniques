@@ -42,6 +42,7 @@ public class MovieAnalytics2 {
                 .collect(Collectors.groupingBy(Movie::getDirector, 
                         Collectors.counting()));
         Stream<Map.Entry<String,Long>> sortedMovies = movieMap.entrySet().stream().
+                sorted(Map.Entry.comparingByKey()).
                 sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).
                 limit(n);
         
@@ -59,7 +60,7 @@ public class MovieAnalytics2 {
                 sorted(Map.Entry.comparingByValue());
         
         sortedGenres.forEach(m -> System.out.println(String.format
-        ("%s: %.2f ", m.getKey(),m.getValue())));
+        ("%s: %.2f", m.getKey(),m.getValue())));
     }
     
     public void printAverageScoreByGenre() {
@@ -71,7 +72,7 @@ public class MovieAnalytics2 {
                 sorted(Collections.reverseOrder(Map.Entry.comparingByValue()));
         
         sortedGenres.forEach(m -> System.out.println(String.format
-        ("%s: %.2f ", m.getKey(),m.getValue())));
+        ("%s: %.2f", m.getKey(),m.getValue())));
     }
     
 }
